@@ -5,11 +5,19 @@ import Players from "./Players";
 export default function Game() {
   // const [playerList, setPlayerList] = useState([]);
 
-  const [game, setGame] = useState([]);
+  const [game, setGame] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem("game");
+    if(saved){
+      const initialValue = JSON.parse(saved);
+      return initialValue
+        }
+        return 
+     });
 
   useEffect(() => {
     //ananewnoume to local storage
-    localStorage.setItem("game", game);
+    localStorage.setItem("game", JSON.stringify(game));
   }, [game]);
 
   // useEffect(()=>{
@@ -18,11 +26,7 @@ export default function Game() {
   //   }
   // },[])
 
-  useEffect(() => {
-    if (localStorage.getItem("game").length !== 0) {
-      setGame(localStorage.getItem("game"));
-    }
-  }, []);
+
 
   const handleResetGame = () => {
     setGame([]);

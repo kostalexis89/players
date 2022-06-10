@@ -1,13 +1,15 @@
 import React from "react";
 
-export default function Player(props) {
+const Player = (props) => {
   const { player, setGame } = props;
+
+  console.log('Hello from player'+player.name)
 
   const handleMinus = () => {
     setGame((cur) =>
       cur.map((item) => {
-        return item.name === player.name
-          ? { name: item.name, score: item.score - 1 }
+        return item.id === player.id
+          ? { ...item, score: (item.score>0) ? item.score - 1 : 0 }
           : item;
       })
     );
@@ -16,8 +18,8 @@ export default function Player(props) {
   const handlePlus = () => {
     setGame((cur) =>
       cur.map((item) => {
-        return item.name === player.name
-          ? { name: item.name, score: item.score + 1 }
+        return item.id === player.id
+          ? { ...item, score: item.score + 1 }
           : item;
       })
     );
@@ -32,3 +34,5 @@ export default function Player(props) {
     </div>
   );
 }
+
+export default React.memo(Player)

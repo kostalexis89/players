@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
-export default function AddPlayer(props) {
+const AddPlayer = (props) => {
   const { setGame } = props;
 
   const [newPlayerName, setNewPlayerName] = useState("");
+
+
 
   const handleNewPlayer = (e) => {
     setNewPlayerName(e.target.value);
@@ -11,15 +13,15 @@ export default function AddPlayer(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setPlayerList(cur=>[...cur,newPlayer])
     setGame((cur) => [
       ...cur,
       {
+        id:cur.length,
         name: newPlayerName,
         score: 0,
       },
-    ]);
-    setNewPlayerName("");
+    ])
+    setNewPlayerName("")
   };
 
   return (
@@ -37,3 +39,5 @@ export default function AddPlayer(props) {
     </form>
   );
 }
+
+export default React.memo(AddPlayer)

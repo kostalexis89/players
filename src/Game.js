@@ -8,12 +8,12 @@ export default function Game() {
   const [game, setGame] = useState(() => {
     // getting stored value
     const saved = localStorage.getItem("game");
-    if(saved){
+    if (saved) {
       const initialValue = JSON.parse(saved);
-      return initialValue
-        }
-        return 
-     });
+      return initialValue;
+    }
+    return [];
+  });
 
   useEffect(() => {
     //ananewnoume to local storage
@@ -26,25 +26,25 @@ export default function Game() {
   //   }
   // },[])
 
-
-
   const handleResetGame = () => {
     setGame([]);
   };
-
+  
   const handleResetAllScore = () => {
     setGame((cur) =>
       cur.map((item) => {
-        return { name: item.name, score: 0 };
+        return {...item,score:0};
       })
     );
   };
 
+  
+
   return (
     <>
-      {game.length > 0 && <Players setGame={setGame} game={game} />}
+      {game && game.length > 0 && <Players setGame={setGame} game={game} />}
       <AddPlayer setGame={setGame} />
-      {game.length > 0 && (
+      {game && game.length > 0 && (
         <>
           <div onClick={handleResetAllScore}>Reset All Score</div>
           <div onClick={handleResetGame}>Reset Game</div>
